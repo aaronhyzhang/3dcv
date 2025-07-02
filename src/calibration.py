@@ -40,6 +40,11 @@ def calibrate_camera():
 
     if objpoints and imgpoints: 
         ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, shape, None, None)
+        if ret:
+            np.save('mtx.npy', mtx)
+            np.save('dist.npy', dist)
+            np.save('rvecs.npy', rvecs)
+            np.save('tvecs.npy', tvecs)
     else:
         print("No images found")
         ret, mtx, dist, rvecs, tvecs = False, False, False, False, False
