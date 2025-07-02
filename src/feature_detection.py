@@ -16,6 +16,8 @@ def main():
     curr_t = np.zeros((3,1))
     listR = []
     listT = []
+    src_total = []
+    dst_total = []
 
     for i in range(8, len(images) - 1):
         img1 = cv2.imread(images[i])
@@ -38,6 +40,9 @@ def main():
         dst_pts = np.float32([kp2[m.trainIdx].pt for m in matches])
         dst_pts = dst_pts.reshape(-1, 1, 2)
 
+        src_total.append(src_pts)
+        dst_total.append(dst_pts)
+
         if len(matches) < 8:
             continue
 
@@ -49,6 +54,11 @@ def main():
 
         listR.append(curr_R)
         listT.append(curr_t)
+
+        np.save('listR.npy', listR)
+        np.save('listT.npy', listT)
+        np.save('src_total.npy', np.array(src_total, dtype=object), allow_pickle=True)
+        np.save('dst_total.npy', np.array(dst_total, dtype=object), allow_pickle=True)
 
 
         # img3 = cv2.drawMatches(img1, kp1, img2, kp2, matches[:10], None, flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
