@@ -12,7 +12,7 @@ objp = np.zeros((CHESSBOARD_SIZE[0] * CHESSBOARD_SIZE[1], 3), np.float32)
 objp[:, :2] = np.mgrid[0:CHESSBOARD_SIZE[0], 0:CHESSBOARD_SIZE[1]].T.reshape(-1, 2)
 
 path = os.path.join(os.path.dirname(__file__), '../public')
-images = glob.glob(os.path.join(path, '*.png'))
+images = glob.glob(os.path.join(path, '*.png')) # fix paths
 count = 0
 
 shape = None
@@ -37,7 +37,7 @@ for fname in images:
 
 cv2.destroyAllWindows()
 
-if objpoints and imgpoints:
+if objpoints and imgpoints: 
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, shape, None, None)
 else:
     print("No images found")
